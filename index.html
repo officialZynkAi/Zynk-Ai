@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zynk AI | Smart Router</title>
+    <style>
+        /* --- DESIGN SECTION (CSS) --- */
+        body {
+            margin: 0;
+            background-color: #050505; /* Pitch Black */
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            width: 90%;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            color: #888;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+        input {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 15px;
+            background: #111;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box; /* Fixes padding issues */
+        }
+        input:focus {
+            outline: none;
+            border-color: #666;
+        }
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .loader {
+            display: none; /* Button dabane par dikhega */
+            color: #666;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Zynk AI</h1>
+        <p>The smartest AI router. Join the waitlist.</p>
+        
+        <input type="email" id="email" placeholder="Enter your email address" required>
+        <button onclick="joinWaitlist()">Get Early Access</button>
+        
+        <div id="status" class="loader">Processing...</div>
+    </div>
+
+    <script>
+        async function joinWaitlist() {
+            const email = document.getElementById('email').value;
+            const statusDiv = document.getElementById('status');
+            
+            // STEP 1: NICHE APNI SUPABASE URL AUR KEY DALO
+            // Example URL: 'https://xyz.supabase.co'
+            // Example Key: 'eyJhbGciOiJIUzI1NiIsInR5...' (lamba wala code)
+            
+            const supabaseUrl = 'https://sicabblqhtjgbheutamv.supabase.co'; 
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpY2FiYmxxaHRqZ2JoZXV0YW12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTAzOTEsImV4cCI6MjA4NTg4NjM5MX0.DRHTaK6DTzVtkR6bzDXi_PAJEH085V-QVvZ6QydmYRw';
+
+            // --- Validation ---
+            if (!email || !email.includes('@')) {
+                alert("Please enter a valid email!");
+                return;
+            }
+
+            statusDiv.style.display = 'block'; // Loading dikhao
+            statusDiv.innerText = "Saving your spot...";
+
+            try {
+                // --- Supabase ko Data Bhejna ---
+                const response = await fetch(`${supabaseUrl}/rest/v1/waitlist`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': supabaseKey,
+                        'Authorization': `Bearer ${supabaseKey}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+
+                if (response.ok) {
+                    statusDiv.style.color = "#4BB543"; // Green Color
+                    statusDiv.innerText = "Success! You are on the list.";
+                    document.getElementById('email').value = ""; // Input saaf kar do
+                } else {
+                    const errorData = await response.json();
+                    console.log("Error:", errorData);
+                    statusDiv.style.color = "red";
+                    statusDiv.innerText = "Error! Check keys or table name.";
+                }
+            } catch (error) {
+                console.log("Network Error:", error);
+                statusDiv.style.color = "red";
+                statusDiv.innerText = "Connection Failed.";
+            }
+        }
+    </script>
+</body>
+</
+  html>
