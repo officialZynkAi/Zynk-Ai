@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zynk AI | Smart Router</title>
+    <title>Zynk AI | Unified Intelligence</title>
     <style>
+        :root {
+            --primary: #0052ff;
+            --bg: #fbfbfd;
+            --text-main: #1d1d1f;
+            --text-sec: #86868b;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #f8faff;
-            color: #1d1d1f;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            /* Premium Soft Gradient Background */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 82, 255, 0.03) 0, transparent 50%), 
+                radial-gradient(at 100% 100%, rgba(0, 82, 255, 0.03) 0, transparent 50%);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,107 +29,235 @@
             overflow: hidden;
         }
 
-        .container { text-align: center; width: 90%; max-width: 500px; }
+        .container {
+            width: 90%;
+            max-width: 460px;
+            padding: 20px;
+        }
 
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0; /* Shuru mein gayab rahega */
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.5s; }
+
+        /* --- Logo --- */
         .logo {
             font-size: 3.5rem;
             font-weight: 800;
-            margin-bottom: 10px;
             letter-spacing: -2px;
+            margin-bottom: 5px;
+            text-align: center;
         }
         .logo span {
-            color: transparent;
-            -webkit-text-stroke: 1.5px #0052ff;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(0, 82, 255, 0.15);
         }
 
-        /* --- Typewriter Fix --- */
+        /* --- Typewriter Effect --- */
         .subtitle-container {
-            margin-bottom: 40px;
-            height: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            height: 24px;
         }
-
         .subtitle {
-            font-size: 1.2rem;
-            color: #555;
+            font-size: 1.1rem;
+            color: var(--text-sec);
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
-            border-right: 2px solid #0052ff; /* Ye wo line hai */
-            width: 0;
-            animation: typing 3s steps(30) forwards, blink 0.7s infinite, hideCursor 0.1s forwards 3.5s;
+            border-right: 2px solid var(--primary);
+            animation: typing 2.5s steps(30) forwards, blink 0.8s infinite;
         }
-
         @keyframes typing { from { width: 0 } to { width: 100% } }
         @keyframes blink { 50% { border-color: transparent } }
-        /* Ye animation line ko hata degi likhne ke baad */
-        @keyframes hideCursor { to { border-right: none; } }
 
-        .glass-box {
+        /* --- Professional Value Prop (The New Section) --- */
+        .value-prop {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .tagline {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        .main-headline {
+            font-size: 1.4rem;
+            color: var(--text-main);
+            line-height: 1.3;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .badge {
             background: white;
+            color: #555;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid #e1e1e1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .description {
+            font-size: 0.9rem;
+            color: var(--text-sec);
+            line-height: 1.5;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        /* --- Glass Form Box --- */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             padding: 30px;
             border-radius: 24px;
-            border: 1px solid rgba(0, 82, 255, 0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            text-align: center;
         }
 
         input {
             width: 100%;
-            padding: 18px;
-            border: 1.5px solid #eee;
+            padding: 16px;
+            background: #f5f5f7;
+            border: 1px solid transparent;
             border-radius: 14px;
             font-size: 1rem;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             outline: none;
+            transition: all 0.3s;
+        }
+        input:focus {
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.1);
         }
 
         button {
             width: 100%;
-            padding: 18px;
-            background: #002d80;
+            padding: 16px;
+            background: #1d1d1f;
             color: white;
             border: none;
             border-radius: 14px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 82, 255, 0.2);
         }
 
-        #status { margin-top: 15px; font-weight: 500; font-size: 0.9rem; }
+        #status {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-height: 20px;
+        }
+
+        .footer-badge {
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: rgba(0, 82, 255, 0.05);
+            color: var(--primary);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <div class="logo">Zynk <span>AI</span></div>
-        <div class="subtitle-container">
-            <div class="subtitle">The smartest AI router is coming...</div>
+        
+        <div class="logo reveal">Zynk <span>AI</span></div>
+        
+        <div class="subtitle-container reveal delay-1">
+            <div class="subtitle" id="typewriter">Next-gen intelligence routing.</div>
         </div>
 
-        <div class="glass-box">
-            <input type="email" id="email" placeholder="Enter your email">
-            <button onclick="joinWaitlist()">Join the Waitlist</button>
-            <div id="status"></div>
+        <div class="value-prop reveal delay-2">
+            <p class="tagline">Autonomous Model Routing</p>
+            <h2 class="main-headline">
+                One interface. <br>The perfect intelligence for every task.
+            </h2>
+            
+            <div class="badge-container">
+                <span class="badge">⚡ Advanced Logic</span>
+                <span class="badge">💻 Complex Coding</span>
+                <span class="badge">🎨 Creative Suite</span>
+            </div>
+
+            <p class="description">
+                Zynk AI dynamically routes your prompt to the most capable expert engine, ensuring precision without complexity.
+            </p>
         </div>
+
+        <div class="glass-box reveal delay-3">
+            <input type="email" id="email" placeholder="Enter work email address">
+            <button onclick="joinWaitlist()">Request Early Access</button>
+            <div id="status"></div>
+
+            <div class="footer-badge">
+                <span style="width: 6px; height: 6px; background: #0052ff; border-radius: 50%;"></span>
+                Private Beta v1.0
+            </div>
+        </div>
+
     </div>
 
     <script>
+        // Cursor hatane ka logic (3 second baad)
+        setTimeout(() => {
+            document.getElementById('typewriter').style.borderRight = 'none';
+        }, 3000);
+
         async function joinWaitlist() {
             const emailField = document.getElementById('email');
             const statusDiv = document.getElementById('status');
             const email = emailField.value.trim();
             
-            // APNI DETAILS YAHAN DALO
+            // APNI SUPABASE KEYS DALO 
             const supabaseUrl = 'https://sicabblqhtjgbheutamv.supabase.co'; 
             const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpY2FiYmxxaHRqZ2JoZXV0YW12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTAzOTEsImV4cCI6MjA4NTg4NjM5MX0.DRHTaK6DTzVtkR6bzDXi_PAJEH085V-QVvZ6QydmYRw';
 
-            if (!email || !email.includes('@')) {
-                statusDiv.style.color = "red";
-                statusDiv.innerText = "Please enter a valid email!";
+            if (!email.includes('@') || !email.includes('.')) {
+                statusDiv.style.color = "#ff3b30";
+                statusDiv.innerText = "Please enter a valid email address.";
                 return;
             }
 
-            statusDiv.style.color = "#555";
-            statusDiv.innerText = "Connecting...";
+            statusDiv.style.color = "#86868b";
+            statusDiv.innerText = "Connecting to secure server...";
 
             try {
                 const response = await fetch(`${supabaseUrl}/rest/v1/waitlist`, {
@@ -133,20 +272,25 @@
                 });
 
                 if (response.ok) {
-                    statusDiv.style.color = "green";
-                    statusDiv.innerText = "Success! You're on the list. 🚀";
-                    emailField.value = "";
+                    statusDiv.style.color = "#34c759";
+                    statusDiv.innerHTML = "Access granted. You're on the list. 🚀";
+                    emailField.value = ""; // Clear input
                 } else {
                     const err = await response.json();
-                    statusDiv.style.color = "red";
-                    statusDiv.innerText = "Error: " + (err.message || "Try again");
+                    statusDiv.style.color = "#ff3b30";
+                    // Agar email already exist karta hai toh ye dikhayega
+                    if(err.code === "23505") {
+                        statusDiv.innerText = "You are already on the list!";
+                    } else {
+                        statusDiv.innerText = "Error: Please try again.";
+                    }
                 }
             } catch (e) {
-                statusDiv.style.color = "red";
-                statusDiv.innerText = "Failed to connect to Supabase.";
+                console.error(e);
+                statusDiv.style.color = "#ff3b30";
+                statusDiv.innerText = "Connection failed. Check your internet.";
             }
         }
     </script>
-    
 </body>
 </html>
