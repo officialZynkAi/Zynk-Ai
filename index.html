@@ -5,109 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zynk AI | Smart Router</title>
     <style>
-        /* --- DESIGN SECTION (CSS) --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            margin: 0;
-            background-color: #050505; /* Pitch Black */
-            color: #ffffff;
+            background: #f8faff; /* Light Blue-ish White */
+            color: #1d1d1f;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            text-align: center;
+            overflow: hidden;
         }
+
         .container {
-            max-width: 400px;
+            text-align: center;
             width: 90%;
-            padding: 20px;
+            max-width: 500px;
+            z-index: 10;
         }
-        h1 {
-            font-size: 3rem;
+
+        /* --- Logo Style --- */
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 10px;
             letter-spacing: -2px;
-            background: linear-gradient(to right, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
-        p {
-            color: #888;
-            font-size: 1.1rem;
+        .logo span {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #0052ff; /* Blue Outline for AI */
+        }
+
+        /* --- Typewriter Animation --- */
+        .subtitle {
+            font-size: 1.2rem;
+            color: #555;
             margin-bottom: 40px;
+            height: 24px;
+            border-right: 2px solid #0052ff;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: typing 3.5s steps(40, end), blink .75s step-end infinite;
         }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            from, to { border-color: transparent }
+            50% { border-color: #0052ff; }
+        }
+
+        /* --- Input & Button --- */
+        .glass-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 82, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 82, 255, 0.05);
+        }
+
         input {
             width: 100%;
-            padding: 16px;
-            margin-bottom: 15px;
-            background: #111;
-            border: 1px solid #333;
-            color: #fff;
-            border-radius: 8px;
+            padding: 18px;
+            border: 1.5px solid #eee;
+            border-radius: 14px;
             font-size: 1rem;
-            box-sizing: border-box; /* Fixes padding issues */
-        }
-        input:focus {
+            margin-bottom: 15px;
             outline: none;
-            border-color: #666;
+            transition: 0.3s;
         }
+
+        input:focus {
+            border-color: #0052ff;
+            box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.1);
+        }
+
         button {
             width: 100%;
-            padding: 16px;
-            background: #fff;
-            color: #000;
+            padding: 18px;
+            background: #002d80; /* Dark Blue */
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.3s;
+            transition: 0.3s;
         }
+
         button:hover {
-            opacity: 0.8;
+            background: #0052ff;
+            transform: translateY(-2px);
         }
-        .loader {
-            display: none; /* Button dabane par dikhega */
-            color: #666;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
+
+        #status { margin-top: 15px; font-weight: 500; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Zynk AI</h1>
-        <p>The smartest AI router. Join the waitlist.</p>
-        
-        <input type="email" id="email" placeholder="Enter your email address" required>
-        <button onclick="joinWaitlist()">Get Early Access</button>
-        
-        <div id="status" class="loader">Processing...</div>
+        <div class="logo">Zynk <span>AI</span></div>
+        <div class="subtitle" id="typewriter">The smartest AI router is coming...</div>
+
+        <div class="glass-box">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <button onclick="joinWaitlist()">Join the Waitlist</button>
+            <div id="status"></div>
+        </div>
     </div>
 
     <script>
+        // Supabase Logic
         async function joinWaitlist() {
             const email = document.getElementById('email').value;
             const statusDiv = document.getElementById('status');
             
-            // STEP 1: NICHE APNI SUPABASE URL AUR KEY DALO
-            // Example URL: 'https://xyz.supabase.co'
-            // Example Key: 'eyJhbGciOiJIUzI1NiIsInR5...' (lamba wala code)
-            
             const supabaseUrl = 'https://sicabblqhtjgbheutamv.supabase.co'; 
             const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpY2FiYmxxaHRqZ2JoZXV0YW12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTAzOTEsImV4cCI6MjA4NTg4NjM5MX0.DRHTaK6DTzVtkR6bzDXi_PAJEH085V-QVvZ6QydmYRw';
 
-            // --- Validation ---
-            if (!email || !email.includes('@')) {
-                alert("Please enter a valid email!");
+            if (!email.includes('@')) {
+                statusDiv.style.color = "red";
+                statusDiv.innerText = "Valid email please!";
                 return;
             }
 
-            statusDiv.style.display = 'block'; // Loading dikhao
-            statusDiv.innerText = "Saving your spot...";
+            statusDiv.innerText = "Securing your spot...";
 
             try {
-                // --- Supabase ko Data Bhejna ---
                 const response = await fetch(`${supabaseUrl}/rest/v1/waitlist`, {
                     method: 'POST',
                     headers: {
@@ -120,22 +150,15 @@
                 });
 
                 if (response.ok) {
-                    statusDiv.style.color = "#4BB543"; // Green Color
-                    statusDiv.innerText = "Success! You are on the list.";
-                    document.getElementById('email').value = ""; // Input saaf kar do
-                } else {
-                    const errorData = await response.json();
-                    console.log("Error:", errorData);
-                    statusDiv.style.color = "red";
-                    statusDiv.innerText = "Error! Check keys or table name.";
+                    statusDiv.style.color = "#0052ff";
+                    statusDiv.innerText = "Welcome to the future. You're in!";
+                    document.getElementById('email').value = "";
                 }
-            } catch (error) {
-                console.log("Network Error:", error);
-                statusDiv.style.color = "red";
-                statusDiv.innerText = "Connection Failed.";
+            } catch (e) {
+                statusDiv.innerText = "Error, try again.";
             }
         }
-    </script>
+    </scrip
+        t>
 </body>
-</
-  html>
+</html>
