@@ -6,258 +6,170 @@
     <title>Zynk AI | Unified Intelligence</title>
     <style>
         :root {
-            --primary: #0052ff;
-            --bg: #fbfbfd;
+            --primary: #0071e3;
+            --bg: #ffffff;
             --text-main: #1d1d1f;
             --text-sec: #86868b;
+            --border: #d2d2d7;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
 
         body {
             background: var(--bg);
-            /* Premium Soft Gradient Background */
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 82, 255, 0.03) 0, transparent 50%), 
-                radial-gradient(at 100% 100%, rgba(0, 82, 255, 0.03) 0, transparent 50%);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .container {
-            width: 90%;
-            max-width: 460px;
-            padding: 20px;
-        }
+        .container { width: 90%; max-width: 480px; text-align: center; }
 
-        /* --- Animations --- */
+        /* Smooth Reveal Animations */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(25px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .reveal {
-            opacity: 0; /* Shuru mein gayab rahega */
-            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+        .reveal { opacity: 0; animation: fadeInUp 1.2s cubic-bezier(0.15, 0.85, 0.35, 1) forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.5s; }
 
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.3s; }
-        .delay-3 { animation-delay: 0.5s; }
+        .logo { font-size: 2.6rem; font-weight: 700; letter-spacing: -1.2px; margin-bottom: 35px; }
+        .logo span { color: var(--primary); }
 
-        /* --- Logo --- */
-        .logo {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 5px;
-            text-align: center;
-        }
-        .logo span {
-            color: var(--primary);
-            text-shadow: 0 0 20px rgba(0, 82, 255, 0.15);
-        }
-
-        /* --- Typewriter Effect --- */
-        .subtitle-container {
-            text-align: center;
-            margin-bottom: 30px;
-            height: 24px;
-        }
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-sec);
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 2px solid var(--primary);
-            animation: typing 2.5s steps(30) forwards, blink 0.8s infinite;
-        }
-        @keyframes typing { from { width: 0 } to { width: 100% } }
-        @keyframes blink { 50% { border-color: transparent } }
-
-        /* --- Professional Value Prop (The New Section) --- */
-        .value-prop {
-            text-align: center;
-            margin-bottom: 35px;
-        }
         .tagline {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 10px;
-            opacity: 0.9;
-        }
-        .main-headline {
-            font-size: 1.4rem;
-            color: var(--text-main);
-            line-height: 1.3;
+            letter-spacing: 2.5px;
+            color: var(--text-sec);
             margin-bottom: 15px;
-            font-weight: 700;
+            font-weight: 600;
         }
-        .badge-container {
+
+        .main-headline {
+            font-size: 2.1rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Typewriter - NO BLINKING LINE */
+        .typewriter-text {
+            font-size: 1rem;
+            color: var(--text-sec);
+            margin-bottom: 35px;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: type 2.5s steps(40) forwards;
+            animation-delay: 0.8s;
+            border-right: none; /* Removed blinker */
+        }
+
+        @keyframes type { from { width: 0; } to { width: 100%; } }
+
+        /* Features - Dot Separator Style */
+        .features {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-        .badge {
-            background: white;
-            color: #555;
-            padding: 6px 14px;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid #e1e1e1;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-        .description {
-            font-size: 0.9rem;
+            gap: 12px;
+            margin-bottom: 45px;
+            font-size: 0.85rem;
             color: var(--text-sec);
-            line-height: 1.5;
-            max-width: 90%;
-            margin: 0 auto;
+            font-weight: 500;
         }
+        .dot { width: 3.5px; height: 3.5px; background: #d2d2d7; border-radius: 50%; align-self: center; }
 
-        /* --- Glass Form Box --- */
-        .glass-box {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            padding: 30px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            text-align: center;
-        }
+        /* Minimalist Input Form */
+        .input-group { position: relative; max-width: 360px; margin: 0 auto; }
 
         input {
             width: 100%;
-            padding: 16px;
-            background: #f5f5f7;
-            border: 1px solid transparent;
-            border-radius: 14px;
+            padding: 18px 22px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
             font-size: 1rem;
-            margin-bottom: 12px;
             outline: none;
-            transition: all 0.3s;
+            background: #f5f5f7;
+            transition: all 0.3s ease;
         }
+
         input:focus {
-            background: white;
+            background: #fff;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 82, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.08);
         }
 
         button {
             width: 100%;
-            padding: 16px;
-            background: #1d1d1f;
-            color: white;
+            margin-top: 15px;
+            padding: 17px;
+            background: #000;
+            color: #fff;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-        button:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 82, 255, 0.2);
+            transition: all 0.2s;
         }
 
-        #status {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            min-height: 20px;
-        }
+        button:hover { opacity: 0.85; transform: scale(0.99); }
 
-        .footer-badge {
-            margin-top: 25px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            background: rgba(0, 82, 255, 0.05);
-            color: var(--primary);
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
+        #status { margin-top: 20px; font-size: 0.9rem; color: var(--text-sec); font-weight: 500; }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <div class="logo reveal">Zynk<span>AI</span></div>
         
-        <div class="logo reveal">Zynk <span>AI</span></div>
-        
-        <div class="subtitle-container reveal delay-1">
-            <div class="subtitle" id="typewriter">Next-gen intelligence routing.</div>
-        </div>
-
-        <div class="value-prop reveal delay-2">
-            <p class="tagline">Autonomous Model Routing</p>
-            <h2 class="main-headline">
-                One interface. <br>The perfect intelligence for every task.
-            </h2>
+        <div class="reveal delay-1">
+            <p class="tagline">The Routing Layer</p>
+            <h1 class="main-headline">One unified interface.<br>Tailored intelligence for every task.</h1>
             
-            <div class="badge-container">
-                <span class="badge">⚡ Advanced Logic</span>
-                <span class="badge">💻 Complex Coding</span>
-                <span class="badge">🎨 Creative Suite</span>
+            <div class="typewriter-text">Autonomous model routing for high-performance teams.</div>
+
+            <div class="features">
+                <span>Strategic Logic</span>
+                <div class="dot"></div>
+                <span>Neural Coding</span>
+                <div class="dot"></div>
+                <span>Creative Suite</span>
             </div>
 
-            <p class="description">
-                Zynk AI dynamically routes your prompt to the most capable expert engine, ensuring precision without complexity.
-            </p>
-        </div>
-
-        <div class="glass-box reveal delay-3">
-            <input type="email" id="email" placeholder="Enter work email address">
-            <button onclick="joinWaitlist()">Request Early Access</button>
-            <div id="status"></div>
-
-            <div class="footer-badge">
-                <span style="width: 6px; height: 6px; background: #0052ff; border-radius: 50%;"></span>
-                Private Beta v1.0
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Work email address" required>
+                <button onclick="joinWaitlist()">Join the Waitlist</button>
+                <div id="status"></div>
             </div>
         </div>
-
     </div>
 
     <script>
-        // Cursor hatane ka logic (3 second baad)
-        setTimeout(() => {
-            document.getElementById('typewriter').style.borderRight = 'none';
-        }, 3000);
-
         async function joinWaitlist() {
             const emailField = document.getElementById('email');
             const statusDiv = document.getElementById('status');
             const email = emailField.value.trim();
-            
-            // APNI SUPABASE KEYS DALO 
+
+            // 🎯 APNI SUPABASE DETAILS YAHAN DALO
             const supabaseUrl = 'https://sicabblqhtjgbheutamv.supabase.co'; 
             const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpY2FiYmxxaHRqZ2JoZXV0YW12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTAzOTEsImV4cCI6MjA4NTg4NjM5MX0.DRHTaK6DTzVtkR6bzDXi_PAJEH085V-QVvZ6QydmYRw';
 
-            if (!email.includes('@') || !email.includes('.')) {
+            if (!email || !email.includes('@')) {
                 statusDiv.style.color = "#ff3b30";
-                statusDiv.innerText = "Please enter a valid email address.";
+                statusDiv.innerText = "Please enter a valid work email.";
                 return;
             }
 
             statusDiv.style.color = "#86868b";
-            statusDiv.innerText = "Connecting to secure server...";
+            statusDiv.innerText = "Requesting access...";
 
             try {
                 const response = await fetch(`${supabaseUrl}/rest/v1/waitlist`, {
@@ -265,30 +177,21 @@
                     headers: {
                         'apikey': supabaseKey,
                         'Authorization': `Bearer ${supabaseKey}`,
-                        'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal'
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ email: email })
                 });
 
                 if (response.ok) {
                     statusDiv.style.color = "#34c759";
-                    statusDiv.innerHTML = "Access granted. You're on the list. 🚀";
-                    emailField.value = ""; // Clear input
+                    statusDiv.innerText = "You're on the list. We'll be in touch soon. 🚀";
+                    emailField.value = ""; 
                 } else {
-                    const err = await response.json();
                     statusDiv.style.color = "#ff3b30";
-                    // Agar email already exist karta hai toh ye dikhayega
-                    if(err.code === "23505") {
-                        statusDiv.innerText = "You are already on the list!";
-                    } else {
-                        statusDiv.innerText = "Error: Please try again.";
-                    }
+                    statusDiv.innerText = "You've already joined the waitlist!";
                 }
-            } catch (e) {
-                console.error(e);
-                statusDiv.style.color = "#ff3b30";
-                statusDiv.innerText = "Connection failed. Check your internet.";
+            } catch (error) {
+                statusDiv.innerText = "Service unavailable. Try again later.";
             }
         }
     </script>
