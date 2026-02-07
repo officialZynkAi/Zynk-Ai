@@ -112,7 +112,7 @@
                 
                 // Duplicate Handling (Rule based on your SQL unique constraint)
                 if (error.code === '23505' || error.message.includes('unique')) {
-                    statusMsg.innerText = "Bhai, you're already on the list! 😎";
+                    statusMsg.innerText = "You're already on the list! 😎";
                     statusMsg.className = "text-sm font-medium text-yellow-500 block text-center mt-4";
                 } else {
                     statusMsg.innerText = "Oops! " + error.message;
