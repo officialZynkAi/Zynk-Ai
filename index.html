@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; }
         .glass-effect {
@@ -19,6 +20,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        /* Subheading Fix */
         .subheading-fix {
             line-height: 1.6;
             overflow: visible;
@@ -48,7 +50,7 @@
                     type="email" 
                     id="emailInput"
                     placeholder="Enter your professional email" 
-                    class="bg-transparent flex-1 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-transparent"
+                    class="bg-transparent flex-1 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-transparent text-white"
                     required
                 >
                 <button 
@@ -60,71 +62,70 @@
             </form>
         </div>
 
-        <div id="statusMsg" class="text-sm font-medium hidden"></div>
+        <div id="statusMsg" class="text-sm font-medium hidden text-center mt-4"></div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12">
             <div class="glass-effect p-6 rounded-2xl text-left hover:border-indigo-500/50 transition-colors">
-                <div class="text-indigo-500 mb-2">⚡</div>
+                <div class="text-indigo-500 mb-2 font-bold text-xl">⚡</div>
                 <h3 class="font-bold mb-1">Ultra Fast</h3>
-                <p class="text-gray-500 text-sm text-balance">Routes to the fastest available model instantly.</p>
+                <p class="text-gray-500 text-sm">Routes to the fastest available model instantly.</p>
             </div>
             <div class="glass-effect p-6 rounded-2xl text-left hover:border-purple-500/50 transition-colors">
-                <div class="text-purple-500 mb-2">🎯</div>
+                <div class="text-purple-500 mb-2 font-bold text-xl">🎯</div>
                 <h3 class="font-bold mb-1">Expert Only</h3>
-                <p class="text-gray-500 text-sm text-balance">Only the best models for your specific prompt.</p>
+                <p class="text-gray-500 text-sm">Only the best models for your specific prompt.</p>
             </div>
             <div class="glass-effect p-6 rounded-2xl text-left hover:border-pink-500/50 transition-colors">
-                <div class="text-pink-500 mb-2">💰</div>
+                <div class="text-pink-500 mb-2 font-bold text-xl">💰</div>
                 <h3 class="font-bold mb-1">Cost Effective</h3>
-                <p class="text-gray-500 text-sm text-balance">Save up to 80% on multiple subscriptions.</p>
+                <p class="text-gray-500 text-sm">Save up to 80% on multiple subscriptions.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // Supabase Configuration
-        const _supabaseUrl = 'https://sicabblqhtjgbheutamv.supabase.co';
-        const _supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpY2FiYmxxaHRqZ2JoZXV0YW12Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAzMTAzOTEsImV4cCI6MjA4NTg4NjM5MX0.DRHTaK6DTzVtkR6bzDXi_PAJEH085V-QVvZ6QydmYRw';
-        const supabase = supabase.createClient(_supabaseUrl, _supabaseKey);
+        // Supabase Setup
+        const _supabaseUrl = 'YOUR_SUPABASE_URL_HERE'; // Replace with yours
+        const _supabaseKey = 'YOUR_SUPABASE_ANON_KEY_HERE'; // Replace with yours
+        const supabaseClient = supabase.createClient(_supabaseUrl, _supabaseKey);
 
         const form = document.getElementById('waitlistForm');
-const statusMsg = document.getElementById('statusMsg');
-const emailInput = document.getElementById('emailInput');
+        const statusMsg = document.getElementById('statusMsg');
+        const emailInput = document.getElementById('emailInput');
 
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = emailInput.value;
-    
-    // Pehle message dikhao ki kaam ho raha hai
-    statusMsg.innerText = "Checking...";
-    statusMsg.className = "text-sm font-medium text-indigo-400 block"; // 'hidden' hatakar 'block' kiya
-    statusMsg.classList.remove('hidden');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const emailValue = emailInput.value;
+            
+            // Initial state
+            statusMsg.innerText = "Connecting to Zynk Cloud...";
+            statusMsg.className = "text-sm font-medium text-indigo-400 block text-center mt-4";
+            statusMsg.classList.remove('hidden');
 
-    const { data, error } = await supabase
-        .from('waitlist')
-        .insert([{ email: email }]);
+            // Insert into Supabase
+            const { data, error } = await supabaseClient
+                .from('waitlist')
+                .insert([{ email: emailValue }]);
 
-    if (error) {
-        console.error("Error code:", error.code);
-        
-        // Agar email pehle se hai (Unique Constraint Error)
-        if (error.code === '23505' || error.message.includes('unique')) {
-            statusMsg.innerText = "Bhai, ye email pehle se registered hai! 😎";
-            statusMsg.className = "text-sm font-medium text-yellow-500 block text-center mt-2";
-        } else {
-            statusMsg.innerText = "Kuch error aaya: " + error.message;
-            statusMsg.className = "text-sm font-medium text-red-500 block text-center mt-2";
-        }
-    } else {
-        // Success message
-        statusMsg.innerText = "Mubarak ho! Registration successful. ✅";
-        statusMsg.className = "text-sm font-medium text-green-500 block text-center mt-2";
-        form.reset(); // Form clear kar do
-    }
-});
-
+            if (error) {
+                console.error("Error detected:", error);
+                
+                // Duplicate Handling (Rule based on your SQL unique constraint)
+                if (error.code === '23505' || error.message.includes('unique')) {
+                    statusMsg.innerText = "Bhai, you're already on the list! 😎";
+                    statusMsg.className = "text-sm font-medium text-yellow-500 block text-center mt-4";
+                } else {
+                    statusMsg.innerText = "Oops! " + error.message;
+                    statusMsg.className = "text-sm font-medium text-red-500 block text-center mt-4";
+                }
+            } else {
+                // Success State
+                statusMsg.innerText = "Success! Welcome to the future of AI. ✅";
+                statusMsg.className = "text-sm font-medium text-green-500 block text-center mt-4";
+                form.reset(); 
             }
         });
     </script>
-</body>
+</bod
+    y>
 </html>
